@@ -1,8 +1,12 @@
 # Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline
+<<<<<<< HEAD
 
 # Overview
 
 This is a fully automated and secured Terraform infra pipeline. We will create 
+=======
+This is a fully automated and secured Terraform infra pipeline
+>>>>>>> 6cea1ef7c849510873dbf7c497e757e945c5a57a
 
 Testing teh webhook.....
 
