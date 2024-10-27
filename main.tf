@@ -13,7 +13,7 @@ module "ec2_dev" {
   name          = "dev"
   tags          = local.common_tags
   iam_role_name = module.iam.ec2_iam_role_name
-  key_pair_name = "Mykeypair"
+  key_pair_name = "devops-keypair"  #Replace with your keypair name
 }
 
 # module code to create the ec2 instance with user data.
@@ -22,8 +22,9 @@ module "ec2_stage" {
   name          = "stage"
   tags          = local.common_tags
   iam_role_name = module.iam.ec2_iam_role_name
-  key_pair_name = "Mykeypair"
+  key_pair_name = "devops-keypair"  #Replace with your keypair name
 }
+
 
 # module code to create the ec2 instance with user data
 module "ec2_prod" {
@@ -31,5 +32,5 @@ module "ec2_prod" {
   name          = "prod"
   tags          = local.common_tags
   iam_role_name = module.iam.ec2_iam_role_name
-  key_pair_name = "Mykeypair"
+  key_pair_name = "devops-keypair"  #Replace with your keypair name
 }
