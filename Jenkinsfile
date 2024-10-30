@@ -65,13 +65,13 @@ pipeline {
             }
         }               
         
-        stage('Manual approval') {
+        /*stage('Manual approval') {
             steps {
                 
                 input 'Approval required for deployment'
                
             }
-        }
+        }*/
         
         
          stage('Terraform apply') {
