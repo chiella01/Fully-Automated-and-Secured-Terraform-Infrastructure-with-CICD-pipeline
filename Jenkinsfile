@@ -12,6 +12,7 @@ pipeline {
                 echo 'Cloning project codebase...'
                 git branch: 'main', url: 'https://github.com/chiella01/Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline.git'
                 sh 'ls'
+                sh 'pwd'
                 
             }
         }
