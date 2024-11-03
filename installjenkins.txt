@@ -1,0 +1,22 @@
+
+#!/bin/bash
+# Hardware requirements: Amazon Linux 2 with mimum t2.medium type instance & port 8080(jenkins) 
+#Note: Use the latest EC2 Linux of 2023 
+# Installing Jenkins & Java
+sudo dnf update
+sudo dnf install java-17-amazon-corretto -y
+java -version
+ssudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo dnf install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+# Installing Git
+sudo yum install git -y
+
+# Setup terraform
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
