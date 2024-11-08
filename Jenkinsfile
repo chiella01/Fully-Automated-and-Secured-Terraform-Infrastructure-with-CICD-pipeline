@@ -56,8 +56,7 @@ pipeline {
             steps {
                 
                 sh """   
-                sudo pip3 install             
-                sudo pip3 install --upgrade pip
+                python3 -m pip install --upgrade pip
                 sudo pip3 install checkov
                 #checkov -d .
                 #checkov -d . --skip-check CKV_AWS_23,CKV_AWS_24,CKV_AWS_126,CKV_AWS_135,CKV_AWS_8,CKV_AWS_23,CKV_AWS_24
