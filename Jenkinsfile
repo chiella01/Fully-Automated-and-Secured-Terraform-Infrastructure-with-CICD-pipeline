@@ -26,8 +26,7 @@ pipeline {
         }
         
         stage('Terraform init') {
-            steps {
-                dir ('/var/lib/jenkins/workspace/infra-pipeline'){
+            steps {    
                     echo 'Initiliazing terraform project...'
                 sh 'sudo terraform init'
                 }
