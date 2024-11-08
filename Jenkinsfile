@@ -56,7 +56,6 @@ pipeline {
             steps {
                 
                 sh """   
-                sudo yum install pip3 -y
                 sudo pip3 install --upgrade pip
                 sudo pip3 install checkov
                 #checkov -d .
