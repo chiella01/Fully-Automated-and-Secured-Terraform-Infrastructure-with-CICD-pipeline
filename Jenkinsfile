@@ -55,7 +55,8 @@ pipeline {
         stage('Checkov scan') {
             steps {
                 
-                sh """                
+                sh """   
+                sudo pip3 install             
                 sudo pip3 install --upgrade setuptools pip
                 sudo pip3 install checkov
                 #checkov -d .
