@@ -22,5 +22,5 @@ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinu
 sudo yum -y install terraform
 
 #installing python3
-#curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-#sudo python3 get-pip.py
+sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python3 get-pip.py
