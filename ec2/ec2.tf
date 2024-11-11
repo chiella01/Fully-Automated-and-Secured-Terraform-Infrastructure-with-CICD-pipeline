@@ -72,7 +72,7 @@ resource "aws_instance" "web_server" {
   instance_type          = "t3.small"
   key_name               = var.key_pair_name
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
-  user_data              = file("scripts/userdata.sh")
+  user_data              = file("scripts/userdata1.sh")
   iam_instance_profile   = aws_iam_instance_profile.instance_profile.name
   tags                   = merge(var.tags, { Name = join("", [var.name, "-", "webserver"]) }, { Environment = var.name })
 

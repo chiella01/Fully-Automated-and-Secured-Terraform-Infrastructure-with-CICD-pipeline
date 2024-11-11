@@ -66,13 +66,13 @@ pipeline {
             }
         }               
         
-        /*stage('Manual approval') {
+        stage('Manual approval') {
             steps {
                 
                 input 'Approval required for deployment'
                
             }
-        }*/
+        }
         
         
          stage('Terraform apply') {
@@ -83,7 +83,7 @@ pipeline {
             }
         }
         
-         stage('Terraform destroy') {
+        /* stage('Terraform destroy') {
              steps {
                 echo 'Terraform destroy...'                             
                  sh 'sudo terraform destroy --auto-approve'
@@ -97,7 +97,7 @@ pipeline {
         always { 
             echo 'I will always say Hello again!'
             slackSend channel: '#team-devops', color: COLOR_MAP[currentBuild.currentResult], message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
-        }
+        }*/
     }
     
     
