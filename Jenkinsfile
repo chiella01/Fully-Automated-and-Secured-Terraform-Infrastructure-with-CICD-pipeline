@@ -56,8 +56,8 @@ pipeline {
             steps {
                 
                 sh """   
-                sudo yum update && sudo yum install python3-pip
-                sudo yum remove python3-requests
+                sudo yum update && sudo yum install python3-pip -y
+                sudo yum remove python3-requests -y
                 sudo pip3 install checkov
                 #checkov -d .
                 #checkov -d . --skip-check CKV_AWS_23,CKV_AWS_24,CKV_AWS_126,CKV_AWS_135,CKV_AWS_8,CKV_AWS_23,CKV_AWS_24
