@@ -13,6 +13,9 @@ sudo dnf install jenkins -y
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
 
+# Adding jenkins to the sudoers group
+echo 'jenkins  ALL=(ALL)    NOPASSWD: ALL' >> /etc/sudoers
+
 # Installing Git
 sudo yum install git -y
 
@@ -22,5 +25,5 @@ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinu
 sudo yum -y install terraform
 
 #installing python3
-sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-sudo python3 get-pip.py
+sudo yum update && sudo yum install python3-pip -y
+sudo yum remove python3-requests -y
