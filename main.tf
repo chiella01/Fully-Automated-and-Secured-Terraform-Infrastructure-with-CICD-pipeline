@@ -10,7 +10,7 @@ module "iam" {
 # module code to create the ec2 instance with user data
 module "ec2_dev" {
   source        = "./ec2"
-  name          = "dev"
+  name          = "Dev"
   tags          = local.common_tags
   iam_role_name = module.iam.ec2_iam_role_name
   key_pair_name = "devops-keypair"  #Replace with your keypair name
@@ -19,7 +19,7 @@ module "ec2_dev" {
 # module code to create the ec2 instance with user data.
 module "ec2_stage" {
   source        = "./ec2"
-  name          = "stage"
+  name          = "Stage"
   tags          = local.common_tags
   iam_role_name = module.iam.ec2_iam_role_name
   key_pair_name = "devops-keypair"  #Replace with your keypair name
@@ -29,7 +29,7 @@ module "ec2_stage" {
 # module code to create the ec2 instance with user data
 module "ec2_prod" {
   source        = "./ec2"
-  name          = "prod"
+  name          = "Prod"
   tags          = local.common_tags
   iam_role_name = module.iam.ec2_iam_role_name
   key_pair_name = "devops-keypair"  #Replace with your keypair name
