@@ -76,21 +76,21 @@ pipeline {
         }
         
         
-         /*stage('Terraform apply') {
+         stage('Terraform apply') {
             steps {
                 echo 'Terraform apply...'                           
                 sh 'sudo terraform apply --auto-approve'
                
             }
-        }*/
+        }
         
-         stage('Terraform destroy') {
+         /*stage('Terraform destroy') {
              steps {
                 echo 'Terraform destroy...'                             
                  sh 'sudo terraform destroy --auto-approve'
                
              }
-         }
+         }*/
         
     }
     
