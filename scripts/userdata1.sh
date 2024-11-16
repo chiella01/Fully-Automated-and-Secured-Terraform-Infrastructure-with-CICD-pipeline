@@ -10,7 +10,7 @@ sudo yum install git -y
 #git clone https://github.com/cvamsikrishna11/ecommerce-web-app.git
 
 # Copy the files inside the cloned folder to the desired location
-sudo cp -r ./ecom-web-app/server1/* /var/www/html/
+sudo cp -r ../ecom-web-app/server1/* /var/www/html/
 
 # To get the current hostname address
 echo "<center><p>Running the website from instance host: $(hostname -f)</p></center>" >> /var/www/html/index.html
