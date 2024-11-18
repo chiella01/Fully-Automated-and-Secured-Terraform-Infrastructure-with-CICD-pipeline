@@ -16,21 +16,21 @@ module "ec2_dev" {
   key_pair_name = "Mykeypair"  #Replace with your keypair name
 }
 
-# module code to create the ec2 instance with user data.
-module "ec2_stage" {
-  source        = "./ec2"
-  name          = "Stage"
-  tags          = local.common_tags
-  iam_role_name = module.iam.ec2_iam_role_name
-  key_pair_name = "Mykeypair"  #Replace with your keypair name
-}
+# # module code to create the ec2 instance with user data.
+# module "ec2_stage" {
+#   source        = "./ec2"
+#   name          = "Stage"
+#   tags          = local.common_tags
+#   iam_role_name = module.iam.ec2_iam_role_name
+#   key_pair_name = "Mykeypair"  #Replace with your keypair name
+# }
 
 
-# module code to create the ec2 instance with user data
-module "ec2_prod" {
-  source        = "./ec2"
-  name          = "Prod"
-  tags          = local.common_tags
-  iam_role_name = module.iam.ec2_iam_role_name
-  key_pair_name = "Mykeypair"  #Replace with your keypair name
-}
+# # module code to create the ec2 instance with user data
+# module "ec2_prod" {
+#   source        = "./ec2"
+#   name          = "Prod"
+#   tags          = local.common_tags
+#   iam_role_name = module.iam.ec2_iam_role_name
+#   key_pair_name = "Mykeypair"  #Replace with your keypair name
+# }
