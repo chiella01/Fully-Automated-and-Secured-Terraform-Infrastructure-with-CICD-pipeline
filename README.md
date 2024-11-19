@@ -104,28 +104,6 @@ sudo yum remove python3-requests -y
 
     - Save
 
-
-
-
-###### Slack 
-   ## [Join the slack channel](https://join.slack.com/t/slack-wcl4742/shared_invite/zt-1kid01o3n-W47OUTHBd2ZZpSzGnow1Wg)
-
-  - Join into the channel "#team-devops"
-
-4)  #### Credentials setup(Slack):
-    1)  #### Configure slack credentials for the pipeline to post alerts on slack channel:
-        - Click on Manage Jenkins --> System
-        - Go to section Slack
-        - Workspace: **devopsfullyau-r0x2686** (if not working try with name of workspace devops-fully-automated)
-        - Credentials: Click on Add button to add new credentials
-            - Slack secret token (slack-token)
-            - Kind: Secret text            
-            - Secret: 3jrfd3GjdMac0dgcxJwcOgQU
-            - ID: slack-token
-            - Description: slack-token
-            - Click on Create        
-
-
 ### GitHub webhook
 
 1) #### Add jenkins webhook to github
@@ -147,9 +125,20 @@ Once both steps above are done click on Save.
 
 ### Run the pipeline
 
+Go back to your local, open your  project on VSCODE
+Open the **Jenkinsfile** and comment the terraform block section of the pipeline script
+![alt text](12.png)
+Save the changes in both files
+Finally push changes to repo __git add . git commit -m "relevant commit message" git push__
+
+Now the pipeline will authomatically pick the code from the git repo and built and deploy the ecommerce websites in the servers
+refresh the EC2 instance console to see the newly created servers
+![alt text](10-1.png)
+
+now grap the public IP of one of the instances and see the new applicatoin with an eye-catching ecommerce webpage
+![alt text](11.png)
 
 
-2) #### Skipping all the checks on the Jenkins file comment the checkov scan lines accordingly with # (sure to shell)
 
 ## Finally observe the whole flow and understand the integrations :) 
 
