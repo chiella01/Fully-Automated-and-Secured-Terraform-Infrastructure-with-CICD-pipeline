@@ -1,6 +1,6 @@
 # Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline
 
-![alt text](<DEVOPS FULLY AUTOMATED01.jpg>)
+![Architecture](<ReadmeImages/DEVOPS FULLY AUTOMATED01.jpg>)
 ## Overview
 
 #### In this project, I build a CICD pipeline to automate the deployment of a simple ecommerce website on AWS. The project will guide you through setting up a jenkins server on EC2 instance. I equally leverage on terraform modules to create an ec2 instance for Dev, Stage, & Prod environments. The Ec2 instances are spurn up with a userdata script that Install Apache HTTP Server, clone the  the repo hosting the  ecommerce web files. These files are copied to the designated directory and websites can be viewd by opening the public ip of any of the instances(dev, stage, prod)  The following devops tools were used
@@ -88,15 +88,19 @@ sudo yum remove python3-requests -y
 3)  #### Pipeline creation
 - Click on **New Item**
 - Enter an item name: **app-infra-pipeline** & select the category as **Pipeline**
-![alt text](02.png)
+
+  ![](02.png)
 
     Select git and enter your git URL
 
-  ![alt text](03.png)
+    ![alt text](03.png)
+  
 
     - Now scroll-down and in the Pipeline section --> Definition --> Select Pipeline script from SCM
     - SCM: **Git**
+
   ![alt text](04.png)  
+
     - Repositories
     - Repository URL: FILL YOUR OWN REPO URL (that we created by importing in the first step)
     - Branch Specifier (blank for 'any'): */main
@@ -109,17 +113,23 @@ sudo yum remove python3-requests -y
 1) #### Add jenkins webhook to github
     - Access your repo **Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline** on github
     - Goto Settings --> Webhooks --> Click on Add webhook 
+    
     ![alt text](05.png)
+
     ![alt text](06.png)
+
     - Payload URL: **htpp://REPLACE-JENKINS-SERVER-PUBLIC-IP:8080/github-webhook/**             (Note: The IP should be public as GitHub is outside of the AWS VPC where Jenkins server is hosted)
     - Click on Add webhook
+    
     ![alt text](07.png)
 
 2) #### Configure on the Jenkins side to pull based on the event
     - Access your jenkins server, pipeline **app-infra-pipeline**
     - Once pipeline is accessed --> Click on Configure --> In the General section --> **Select GitHub project checkbox** and ensure you have correctly filled in your repo URL of the project **Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline**
     - Scroll down --> In the Build Triggers section -->  **Select GitHub hook trigger for GITScm polling checkbox**
+
 ![alt text](08.png)
+
 Once both steps above are done click on Save.
 
 
@@ -133,9 +143,10 @@ Finally push changes to repo __git add . git commit -m "relevant commit message"
 
 Now the pipeline will authomatically pick the code from the git repo and built and deploy the ecommerce websites in the servers
 refresh the EC2 instance console to see the newly created servers
+
 ![alt text](10-1.png)
 
-now grap the public IP of one of the instances and see the new applicatoin with an eye-catching ecommerce webpage
+Now grap the public IP of one of the instances and see the new applicatoin with an eye-catching ecommerce webpage
 ![alt text](11.png)
 
 
