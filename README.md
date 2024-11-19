@@ -89,11 +89,11 @@ sudo yum remove python3-requests -y
 - Click on **New Item**
 - Enter an item name: **app-infra-pipeline** & select the category as **Pipeline**
 
-  ![](02.png)
+  ![Diagram2](02.png)
 
     Select git and enter your git URL
 
-    ![alt text](03.png)
+    ![Diagram3](03.png)
   
 
     - Now scroll-down and in the Pipeline section --> Definition --> Select Pipeline script from SCM
