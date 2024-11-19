@@ -91,7 +91,7 @@ pipeline {
                  sh 'sudo terraform destroy --auto-approve'
                
              }
-         }
+         }*/
         
     }
     
