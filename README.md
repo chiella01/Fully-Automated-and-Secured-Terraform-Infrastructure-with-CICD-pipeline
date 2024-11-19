@@ -1,38 +1,69 @@
 # Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline
 
+![alt text](<DEVOPS FULLY AUTOMATED01.jpg>)
+## Overview
 
-# Overview
+#### In this project, I build a CICD pipeline to automate the deployment of a simple ecommerce website on AWS. The project will guide you through setting up a jenkins server on EC2 instance. I equally leverage on terraform modules to create an ec2 instance for Dev, Stage, & Prod environments. The Ec2 instances are spurn up with a userdata script that Install Apache HTTP Server, clone the  the repo hosting the  ecommerce web files. These files are copied to the designated directory and websites can be viewd by opening the public ip of any of the instances(dev, stage, prod)  The following devops tools were used
+ * Infrastructure as code using terraform 
+  * Jenkins to perform the builds
+  * checkov for scanning and analyzing terraform files for misconfigurations that may lead to security/compliance issues.
+  * configure slack to post alerts on slack channel
+## Prerequisites
+    - AWS Account:  Admin access to AWS account
+    - AWS CLI: installed and configured with the righ credentials
+    - Git: This will be installed on your EC2 instance
+    - Jenkins: this will be installed on EC2 instance
+    - Terraform: install terraform on EC2 instance
 
-This is a fully automated and secured Terraform infra pipeline. i used Jenkins to deploy the terraform code
-=======
-This is a fully automated and secured Terraform infra pipeline
->>>>>>> 6cea1ef7c849510873dbf7c497e757e945c5a57a
 
-Testing teh webhook.....
-
+1) [Link to  GitHub hosting the project files](https://github.com/chiella01/Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline)     
+    
 ## CICD Infra setup
-1) ###### GitHub setup
-    Fork GitHub Repository by using the existing repo "devops-fully-automated-infra" (https://github.com/cvamsikrishna11/devops-fully-automated-infra)     
-    - Go to GitHub (github.com)
-    - Login to your GitHub Account
-    - **Fork repository "devops-fully-automated-infra" (https://github.com/cvamsikrishna11/devops-fully-automated-infra.git) & name it "devops-fully-automated-infra"**
-    - Clone your newly created repo to your local
-
-2) ###### Jenkins
-    - Create an **Amazon Linux 2 VM** instance and call it "Jenkins"
-    - Instance type: t2.large
-    - Security Group (Open): 8080, 9100 and 22 to 0.0.0.0/0
+2) ###### Install Jenkins on EC2
+    - Create an **Amazon Linux 2023 AMI VM** instance and call it "Jenkins"
+    - Instance type: t2.medium
+    - Security Group (Open): 8080 and 22 
     - Key pair: Select or create a new keypair
     - **Attach Jenkins server with IAM role having "AdministratorAccess"**
-    - User data (Copy the following user data): https://github.com/cvamsikrishna11/devops-fully-automated/blob/installations/jenkins-maven-ansible-setup.sh
-    - Launch Instance
-    - After launching this Jenkins server, attach a tag as **Key=Application, value=jenkins**
+ ## User data 
+ 
+```bash
+  
+#!/bin/bash
+# Hardware requirements: Amazon Linux 2 with mimum t2.medium type instance & port 8080(jenkins) 
+#Note: Use the latest EC2 Linux of 2023 
+# Installing Jenkins & Java
+sudo dnf update
+sudo dnf install java-17-amazon-corretto -y
+java -version
+ssudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo dnf install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
 
-3) ###### Slack 
-    - **Join the slack channel https://join.slack.com/t/slack-wcl4742/shared_invite/zt-1kid01o3n-W47OUTHBd2ZZpSzGnow1Wg**
-    - **Join into the channel "#team-devops"**
+# Adding jenkins to the sudoers group
+echo 'jenkins  ALL=(ALL)    NOPASSWD: ALL' >> /etc/sudoers
 
-### Jenkins setup
+# Installing Git
+sudo yum install git -y
+
+# Setup terraform
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+
+#installing python3
+sudo yum update && sudo yum install python3-pip -y
+sudo yum remove python3-requests -y
+```
+    
+- Launch Instance
+- After launching this Jenkins server, attach a tag as **Key=Application, value=jenkins**
+
+
+## Jenkins setup
 1) #### Access Jenkins
     Copy your Jenkins Public IP Address and paste on the browser = ExternalIP:8080
     - Login to your Jenkins instance using your Shell (GitBash or your Mac Terminal)
@@ -40,10 +71,9 @@ Testing teh webhook.....
         - Run: `sudo cat /var/lib/jenkins/secrets/initialAdminPassword`
         - Copy the password and login to Jenkins
     - Plugins: Choose Install Suggested Plugings 
-    - Provide 
-        - Username: **admin**
-        - Password: **admin**
-        - Name and Email can also be admin. You can use `admin` all, as its a poc.
+    - Provide username and password details of your choice
+        - Username: ****
+        - Password: ****
     - Continue and Start using Jenkins
 
 2)  #### Plugin installations:
@@ -51,22 +81,36 @@ Testing teh webhook.....
     - Click on "Plugins"
     - Click "Available Plugins"
     - Search and Install the following Plugings "Install Without Restart"        
-        - **Slack Notification**
-
+        - **Slack Notification*
+        - **pipeline stage view*
 
 
 3)  #### Pipeline creation
-    - Click on **New Item**
-    - Enter an item name: **app-infra-pipeline** & select the category as **Pipeline**
+- Click on **New Item**
+- Enter an item name: **app-infra-pipeline** & select the category as **Pipeline**
+![alt text](02.png)
+
+    Select git and enter your git URL
+
+  ![alt text](03.png)
+
     - Now scroll-down and in the Pipeline section --> Definition --> Select Pipeline script from SCM
     - SCM: **Git**
+  ![alt text](04.png)  
     - Repositories
-        - Repository URL: FILL YOUR OWN REPO URL (that we created by importing in the first step)
-        - Branch Specifier (blank for 'any'): */main
-        - Script Path: Jenkinsfile
+    - Repository URL: FILL YOUR OWN REPO URL (that we created by importing in the first step)
+    - Branch Specifier (blank for 'any'): */main
+    - Script Path: Jenkinsfile
+
     - Save
 
 
+
+
+###### Slack 
+   ## [Join the slack channel](https://join.slack.com/t/slack-wcl4742/shared_invite/zt-1kid01o3n-W47OUTHBd2ZZpSzGnow1Wg)
+
+  - Join into the channel "#team-devops"
 
 4)  #### Credentials setup(Slack):
     1)  #### Configure slack credentials for the pipeline to post alerts on slack channel:
@@ -85,35 +129,31 @@ Testing teh webhook.....
 ### GitHub webhook
 
 1) #### Add jenkins webhook to github
-    - Access your repo **devops-fully-automated-infra** on github
+    - Access your repo **Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline** on github
     - Goto Settings --> Webhooks --> Click on Add webhook 
+    ![alt text](05.png)
+    ![alt text](06.png)
     - Payload URL: **htpp://REPLACE-JENKINS-SERVER-PUBLIC-IP:8080/github-webhook/**             (Note: The IP should be public as GitHub is outside of the AWS VPC where Jenkins server is hosted)
     - Click on Add webhook
+    ![alt text](07.png)
 
 2) #### Configure on the Jenkins side to pull based on the event
     - Access your jenkins server, pipeline **app-infra-pipeline**
-    - Once pipeline is accessed --> Click on Configure --> In the General section --> **Select GitHub project checkbox** and fill your repo URL of the project devops-fully-automated.
+    - Once pipeline is accessed --> Click on Configure --> In the General section --> **Select GitHub project checkbox** and ensure you have correctly filled in your repo URL of the project **Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline**
     - Scroll down --> In the Build Triggers section -->  **Select GitHub hook trigger for GITScm polling checkbox**
+![alt text](08.png)
+Once both steps above are done click on Save.
 
-Once both the above steps are done click on Save.
+
+### Run the pipeline
 
 
-### Codebase setup
-
-1) #### For checking the checkov scan uncomment lines 74-78 in ec2/ec2.tf file
-    - Go back to your local, open your "devops-fully-automated" project on VSCODE
-    - Open "ec2.tf file" uncomment lines   
-    - Save the changes in both files
-    - Finally push changes to repo
-        `git add .`
-        `git commit -m "relevant commit message"`
-        `git push`
 
 2) #### Skipping all the checks on the Jenkins file comment the checkov scan lines accordingly with # (sure to shell)
 
 ## Finally observe the whole flow and understand the integrations :) 
 
-### Destroy the infra
+### Destroy the infrastructure
 
 1) #### Once the flow is observed, lets destroy the infra with same code
     - Go back to your local, open your "devops-fully-automated" project on VSCODE
