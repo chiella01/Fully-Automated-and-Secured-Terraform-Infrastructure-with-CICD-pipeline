@@ -9,11 +9,11 @@
   * checkov for scanning and analyzing terraform files for misconfigurations that may lead to security/compliance issues.
   * configure slack to post alerts on slack channel
 ## Prerequisites
-    - AWS Account:  Admin access to AWS account
-    - AWS CLI: installed and configured with the righ credentials
-    - Git: This will be installed on your EC2 instance
-    - Jenkins: this will be installed on EC2 instance
-    - Terraform: install terraform on EC2 instance
+    * AWS Account:  Admin access to AWS account
+    * AWS CLI: installed and configured with the righ credentials
+    * Git: This will be installed on your EC2 instance
+    * Jenkins: this will be installed on EC2 instance
+    * Terraform: install terraform on EC2 instance
 
 
 1) [Link to  GitHub hosting the project files](https://github.com/chiella01/Fully-Automated-and-Secured-Terraform-Infrastructure-with-CICD-pipeline)     
@@ -26,6 +26,7 @@
     - Key pair: Select or create a new keypair
     - **Attach Jenkins server with IAM role having "AdministratorAccess"**
  ## User data 
+ Copy the userdata below and paste in the userdata section of the EC2 instance
  
 ```bash
   
@@ -65,11 +66,11 @@ sudo yum remove python3-requests -y
 
 ## Jenkins setup
 1) #### Access Jenkins
-    Copy your Jenkins Public IP Address and paste on the browser = ExternalIP:8080
+    Copy your Jenkins Public IP Address and paste on the browser (Public IP:8080)
     - Login to your Jenkins instance using your Shell (GitBash or your Mac Terminal)
     - Copy the Path from the Jenkins UI to get the Administrator Password
-        - Run: `sudo cat /var/lib/jenkins/secrets/initialAdminPassword`
-        - Copy the password and login to Jenkins
+    - Run: `sudo cat /var/lib/jenkins/secrets/initialAdminPassword`
+    - Copy the password and login to Jenkins
     - Plugins: Choose Install Suggested Plugings 
     - Provide username and password details of your choice
         - Username: ****
@@ -81,7 +82,6 @@ sudo yum remove python3-requests -y
     - Click on "Plugins"
     - Click "Available Plugins"
     - Search and Install the following Plugings "Install Without Restart"        
-        - **Slack Notification*
         - **pipeline stage view*
 
 
@@ -135,7 +135,7 @@ Once both steps above are done click on Save.
 
 ### Run the pipeline
 
-Go back to your local, open your  project on VSCODE
+Go back to your local machine, open your  project on VSCODE
 Open the **Jenkinsfile** and comment the terraform block section of the pipeline script
 ![alt text](./ReadmeImages/12.png)
 Save the changes in both files
